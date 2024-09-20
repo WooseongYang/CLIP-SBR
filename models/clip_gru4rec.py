@@ -70,7 +70,6 @@ class CLIP_GRU4Rec(SequentialRecommender):
         for item_id, community_id in self.partition.items():
             self.lookup_tensor[item_id] = community_id
         
-        # self.n_communities = max(dataset.inter_feat['community_id']) 
         self.n_communities = len(set(self.partition.values()))
         self.community_prompt = nn.Embedding(self.n_communities + 1, self.embedding_size, padding_idx=0)
 
@@ -129,8 +128,6 @@ class CLIP_GRU4Rec(SequentialRecommender):
 
         item_normalized = F.normalize(item_seq_emb, p=2, dim=1) 
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
-        # item_normalized = item_seq_emb 
-        # cprompt_normalized = cprompt
 
         # Compute gating weights
         gate_weight_item = self.sigmoid(self.gate_layer_item(item_normalized))
@@ -140,7 +137,7 @@ class CLIP_GRU4Rec(SequentialRecommender):
         gated_input = gate_weight_item * item_normalized + gate_weight_cprompt * cprompt_normalized
 
         item_seq_emb_dropout = self.emb_dropout(gated_input)
-        # item_seq_emb_dropout = self.emb_dropout(item_seq_emb)
+
         gru_output, _ = self.gru_layers(item_seq_emb_dropout)
         gru_output = self.dense(gru_output)
         seq_output = self.gather_indexes(gru_output, item_seq_len - 1)
