@@ -106,8 +106,6 @@ class CLIP_TAGNN(SequentialRecommender):
 
         item_normalized = F.normalize(seq_hidden, p=2, dim=1) 
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
-        # item_normalized = seq_hidden
-        # cprompt_normalized = cprompt
 
         # Compute gating weights
         gate_weight_item = self.sigmoid(self.gate_layer_item(item_normalized))
