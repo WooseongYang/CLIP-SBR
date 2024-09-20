@@ -1,20 +1,18 @@
-# environments
-python: 3.10.14
-cuda 11.3.1/ pytorch 1.12.1
+# CLIP-SBR
 
-# Install RecBole
-'''
+## Environments
+
+- **Python**: 3.10
+- **PyTorch**: 1.12
+
+### RecBole
+To install RecBole, use the following command:
+```bash
 pip install recbole
-'''
-# RecBole-GNN
-'''
+```
+### RecBole-GNN
+To install RecBole-GNN, use the following command:
+```bash
 git clone https://github.com/RUCAIBox/RecBole-GNN
-'''
-copy "recbole_gnn" to the root directory
-# download & unzip data from "https://drive.google.com/file/d/1edcrT_ExguRKZW3-YxPgOCtl4rTDrk_1/view"
-place "processed_data" to the root directory
-# preprocess data
-python data_process.py --dataset {dataset}
-
-# model training
-python run.py --model {model} --dataset {dataset}
+```
+Copy the recbole_gnn folder to the root directory.
