@@ -143,8 +143,7 @@ class CLIP_CORE(SequentialRecommender):
         # Fill the lookup tensor with the partition values
         for item_id, community_id in self.partition.items():
             self.lookup_tensor[item_id] = community_id
-        
-        # self.n_communities = max(dataset.inter_feat['community_id']) 
+    
         self.n_communities = len(set(self.partition.values()))
         self.community_prompt = nn.Embedding(self.n_communities + 1, self.embedding_size, padding_idx=0)
 
@@ -206,8 +205,6 @@ class CLIP_CORE(SequentialRecommender):
 
         item_normalized = F.normalize(x, p=2, dim=1) 
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
-        # item_normalized = x
-        # cprompt_normalized = cprompt
 
         # Compute gating weights
         gate_weight_item = self.sigmoid(self.gate_layer_item(item_normalized))
