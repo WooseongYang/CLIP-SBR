@@ -35,7 +35,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import faiss
 import joblib
 from collections import Counter
-# from datasketch import MinHash
 
 class GNN(nn.Module):
     r"""Graph neural networks are well-suited for session-based recommendation,
@@ -167,7 +166,6 @@ class CLIP_SRGNN(SequentialRecommender):
         for item_id, community_id in self.partition.items():
             self.lookup_tensor[item_id] = community_id
         
-        # self.n_communities = max(dataset.inter_feat['community_id']) 
         self.n_communities = len(set(self.partition.values()))
         self.community_prompt = nn.Embedding(self.n_communities + 1, self.embedding_size, padding_idx=0)
 
@@ -260,8 +258,6 @@ class CLIP_SRGNN(SequentialRecommender):
 
         cprompt = self.community_prompt(community_seq)
         
-        # item_normalized = F.normalize(hidden, p=2, dim=1) 
-        # cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
         item_normalized = hidden
         cprompt_normalized = cprompt
 
@@ -272,7 +268,6 @@ class CLIP_SRGNN(SequentialRecommender):
         gated_input_hidden = gate_weight_item * item_normalized + gate_weight_cprompt * cprompt_normalized
 
         hidden = self.gnn(A, gated_input_hidden)
-        # hidden = self.gnn(A, hidden + self.weight*user_prompt)
         alias_inputs = alias_inputs.view(-1, alias_inputs.size(1), 1).expand(
             -1, -1, self.embedding_size
         )
