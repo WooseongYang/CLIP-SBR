@@ -236,7 +236,6 @@ class CLIP_LESSR(SequentialRecommender):
         feat_normalized = F.normalize(feat, p=2, dim=1) 
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
         # gating
-        # feat = gate_weight_item * feat + gate_weight_cprompt * cprompt
         feat = gate_weight_item * feat_normalized + gate_weight_cprompt * cprompt_normalized
         ###
         for i, layer in enumerate(self.layers):
