@@ -201,16 +201,14 @@ class CLIP_GCEGNN(SequentialRecommender):
         # Compute gating weights
         gate_weight_item = self.sigmoid(self.gate_layer_item(h))
         gate_weight_cprompt = self.sigmoid(self.gate_layer_prompt(cprompt))
-        # import pdb; pdb.set_trace()
+     
         h_normalized = F.normalize(h, p=2, dim=1) 
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
         # gating
-        # h_prompted = gate_weight_item * h + gate_weight_cprompt * cprompt
         h_prompted = gate_weight_item * h_normalized + gate_weight_cprompt * cprompt_normalized
 
 
         # local
-        # h_local = self.local_agg(h, edge_index, edge_attr)
         h_local = self.local_agg(h_prompted, edge_index, edge_attr)
 
         # global
