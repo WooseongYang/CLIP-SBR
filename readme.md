@@ -20,9 +20,8 @@ Copy the recbole_gnn folder to the root directory.
 ## Data Preparation
 ### Download and Unzip Data
 Download the preprocessed data from the following link and place the 'processed_data' folder in the root directory:
-```
-https://drive.google.com/file/d/1edcrT_ExguRKZW3-YxPgOCtl4rTDrk_1/view
-```
+[Processed Data](https://drive.google.com/file/d/1edcrT_ExguRKZW3-YxPgOCtl4rTDrk_1/view)
+
 ### Preprocess Data
 Run the following command to preprocess the data:
 ```bash
