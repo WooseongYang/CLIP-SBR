@@ -150,7 +150,6 @@ class CLIP_GCSAN(SequentialRecommender):
         for item_id, community_id in self.partition.items():
             self.lookup_tensor[item_id] = community_id
         
-        # self.n_communities = max(dataset.inter_feat['community_id']) 
         self.n_communities = len(set(self.partition.values()))
         self.community_prompt = nn.Embedding(self.n_communities + 1, self.hidden_size, padding_idx=0)
 
@@ -253,8 +252,6 @@ class CLIP_GCSAN(SequentialRecommender):
 
         item_normalized = F.normalize(hidden, p=2, dim=1)
         cprompt_normalized = F.normalize(cprompt, p=2, dim=1)
-        # item_normalized = hidden
-        # cprompt_normalized = cprompt
 
         # Compute gating weights
         gate_weight_item = self.sigmoid(self.gate_layer_item(item_normalized))
@@ -262,8 +259,6 @@ class CLIP_GCSAN(SequentialRecommender):
         # gating
         gated_input = gate_weight_item * hidden + gate_weight_cprompt * cprompt
 
-
-        # hidden = self.gnn(A, hidden)
         hidden = self.gnn(A, gated_input)
         alias_inputs = alias_inputs.view(-1, alias_inputs.size(1), 1).expand(
             -1, -1, self.hidden_size
