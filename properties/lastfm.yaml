@@ -6,7 +6,6 @@ field_separator: "\t"
 seq_separator: " " 
 USER_ID_FIELD: session_id
 ITEM_ID_FIELD: item_id 
-# RATING_FIELD: rating 
 TIME_FIELD: timestamp 
 
 load_col: ~
@@ -24,20 +23,15 @@ train_neg_sample_args: ~
 eval_step: 1 
 stopping_step: 10 
 
-# benchmark_filename: ["train", "valid", "test"]
-# alias_of_item_id: ["item_id_list"]
-
 # evalution settings
 eval_args:
    split: {'RS': [0.8,0.1,0.1]}
-   # split: {'LS': 'valid_and_test'}
    order: TO
    mode: full
    group_by: user
 
 metrics: ["MRR","NDCG","Hit","Recall"] 
 valid_metric: MRR@10 
-# weight_decay: 0
 topk: [5, 10, 20, 50]
 
 # directory setting
